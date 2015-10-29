@@ -10,7 +10,9 @@ var fn = function(decorators, originalFunction) {
                 break;
             }
         }
-        return originalFunction.apply(null, args);
+        if (tmpArgs) {
+            return originalFunction.apply(null, args);
+        }
     };
 };
 
