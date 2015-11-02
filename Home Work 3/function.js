@@ -1,9 +1,10 @@
-var fn = function(decorators, originalFunction) {
+var fn = function() {
+    var functions = Array.prototype.slice.call(arguments);
     return function () {
         var args = Array.prototype.slice.call(arguments);
         var tmpArgs;
-        for (var i = 0; i < decorators.length; i++) {
-            tmpArgs = decorators[i].apply(null, args);
+        for (var i = 0; i < functions.length-1; i++) {
+            tmpArgs = functions[i].apply(null, args);
             if (tmpArgs) {
                 args = tmpArgs
             } else {
@@ -11,7 +12,7 @@ var fn = function(decorators, originalFunction) {
             }
         }
         if (tmpArgs) {
-            return originalFunction.apply(null, args);
+            return functions[functions.length-1].apply(null, args);
         }
     };
 };
@@ -31,7 +32,7 @@ var toNumber = function() {
     return Array.prototype.slice.call(arguments);
 };
 
-add = fn ([toNumber], add);
+add = fn (toNumber, add);
 
 console.log(add('2', 1, '3'));
 
