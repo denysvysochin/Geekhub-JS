@@ -3,17 +3,24 @@
  */
 var myMap = function (array, func) {
     var newArr = [];
-    array.forEach(function (item, i, arr) {
+    myForEach(array, function (item, i, arr) {
         newArr.push(func(item, i, arr));
     });
     return newArr;
 };
 
 var myReduce = function (array, func, first) {
-    var previousValue = first;
-    array.forEach(function (item, index, arr) {
-        previousValue = func(previousValue, item, index, arr);
-    });
+    var previousValue, i;
+    if (first) {
+        previousValue = first;
+        i = 0;
+    } else {
+        previousValue = array[0];
+        i = 1;
+    }
+    for (i; i<array.length; i++) {
+        previousValue = func(previousValue, array[i], i, array);
+    }
     return previousValue;
 };
 
@@ -25,48 +32,67 @@ var myForEach = function (array, func) {
 
 var mySome = function (array, func) {
     var result = false;
-    array.forEach(function (item, i, array) {
-        if (func(item, i, array)){
-            result = true;
-        }
-    });
+    var BreakException = {};
+    try {
+        myForEach(array, function (item, i, array) {
+            if (func(item, i, array)) {
+                result = true;
+                throw BreakException;
+            }
+        });
+    } catch (e) {
+        if (e !== BreakException) throw e;
+    }
     return result;
 };
 
 var myEvery = function (array, func) {
     var result = true;
-    array.forEach(function (item, i, array) {
-        if (!func(item, i, array)){
-            result = false;
-        }
-    });
+    var BreakException = {};
+    try {
+        myForEach(array, function (item, i, array) {
+            if (!func(item, i, array)) {
+                result = false;
+                throw BreakException;
+            }
+        });
+    } catch (e) {
+        if (e !== BreakException) throw e;
+    }
     return result;
 };
 
 var myIndexOf = function (array, element, number) {
     var index = -1, currentPosition = 1;
+    var BreakException = {};
     number = number || 1;
-    array.forEach(function (item, i) {
-        if (item === element) {
-            number == currentPosition ? index = i : currentPosition++;
-        }
-    });
+    try {
+        myForEach(array, function (item, i) {
+            if (item === element) {
+                number == currentPosition ? index = i : currentPosition++;
+            }
+        });
+    } catch (e) {
+        if (e !== BreakException) throw e;
+    }
     return index;
 };
 
 var myReverse = function (array) {
     var newArr = [];
-    array.forEach(function (item) {
+    myForEach(array, function (item) {
         newArr.unshift(item);
     });
-    return newArr;
+    array = newArr;
+    return array;
 };
 
 var myJoin = function (array, str) {
+    str = str || ",";
     var newString = array[0] + "";
     if (array.length > 1) {
         for (var i = 1; i < array.length; i++) {
-            newString += str + (array[i] + "");
+            newString += str + (array[i] ? array[i] : "" + "");
         }
     }
     return newString;
@@ -80,11 +106,11 @@ var myJoin = function (array, str) {
 var bubbleSort = function (array) {
     var sortedArray = array;
     for (var i = 0; i < sortedArray.length; i++) {
-        for (var j = 0; j < sortedArray.length-i-1; j++) {
-            if (sortedArray[j] > sortedArray[j+1]) {
+        for (var j = 0; j < sortedArray.length - i - 1; j++) {
+            if (sortedArray[j] > sortedArray[j + 1]) {
                 var tmp = sortedArray[j];
-                sortedArray[j] = sortedArray[j+1];
-                sortedArray[j+1] = tmp;
+                sortedArray[j] = sortedArray[j + 1];
+                sortedArray[j + 1] = tmp;
             }
         }
     }
@@ -94,10 +120,10 @@ var bubbleSort = function (array) {
 var insertionSort = function (array) {
     var sortedArray = array;
     for (var i = 1; i < sortedArray.length; i++) {
-        for (var j = i; sortedArray[j-1] > sortedArray[j]; j--) {
+        for (var j = i; sortedArray[j - 1] > sortedArray[j]; j--) {
             var tmp = sortedArray[j];
-            sortedArray[j] = sortedArray[j-1];
-            sortedArray[j-1] = tmp;
+            sortedArray[j] = sortedArray[j - 1];
+            sortedArray[j - 1] = tmp;
         }
     }
     return sortedArray;
@@ -124,20 +150,50 @@ var quickSort = function (array) {
 var testArr = ["one", "two", "three", "four", "five"];
 
 //Test Map
-console.log(myMap(testArr, function (item) {return item.length;}));
+console.log(testArr.map(function (item) {
+    return item.length;
+}));
+console.log(myMap(testArr, function (item) {
+    return item.length;
+}));
+
+
 
 //Test Reduce
-console.log(myReduce(testArr, function (prev, current) {return prev + " " + current + " ";}, ""));
+var testArr = ["one", undefined, "three", "four", "five"];
+console.log(myReduce(testArr, function (prev, current) {
+    return prev + " " + current + " ";
+}));
+console.log(testArr.reduce(function (prev, current) {
+    return prev + " " + current + " ";
+}));
 
 //Test ForEach
-myForEach(testArr, function (item) {console.log(item)});
-
+testArr = ["one", undefined, "three", "four", "five"];
+myForEach(testArr, function (item) {
+    console.log(item)
+});
+testArr.forEach(function (item) {
+    console.log(item)
+});
+testArr = ["one", "two", "three", "four", "five", "three"];
 //Test Every
-console.log(myEvery(testArr, function (item) {return item == "one";}));
+console.log(myEvery(testArr, function (item) {
+    return item == "one";
+}));
+console.log(testArr.every(function (item) {
+    return item == "one";
+}));
+testArr = ["one", undefined, "three", "four", "five"];
 
 //Test Some
-console.log(mySome(testArr, function (item) {return item == "one";}));
-
+console.log(mySome(testArr, function (item) {
+    return item == "one";
+}));
+console.log(testArr.some(function (item) {
+    return item == "one";
+}));
+testArr = ["one", "two", "three", "four", "five"];
 //Test IndexOf
 console.log(myIndexOf(testArr, "three"));
 
@@ -145,7 +201,10 @@ console.log(myIndexOf(testArr, "three"));
 console.log(myReverse(testArr));
 
 //Test Join
-console.log(myJoin(testArr, ", "));
+testArr = ["one", undefined, "three", "four", "five"];
+
+console.log(myJoin(testArr));
+console.log(testArr.join());
 
 //Test Bubble sort
 testArr = [9, 8, 7, 1, 2, 4, 3, 5, 6];
