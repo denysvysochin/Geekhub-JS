@@ -1,0 +1,30 @@
+body {
+    background-color: gray;
+    text-align: center;
+}
+
+h1 {
+    color: chartreuse;
+}
+
+.cell {
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    border: 1px solid #504E50;
+    float: left;
+}
+
+.row {
+    margin: 0;
+    padding: 0;
+    clear: both;
+
+}
+
+#gameField {
+    padding-top: 20px;
+    margin: 0 auto;
+}
