@@ -1,5 +1,5 @@
 var EMAIL_PATTERN = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-var PASSWORD_PATTERN = /((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/;
+var PASSWORD_PATTERN = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*[!#\$%&\?])^\D.{7})/;
 var PHONE_PASSWORD = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
 
 var checkRegistration = function () {
@@ -20,6 +20,7 @@ var checkRegistration = function () {
                 if (err) {
                     document.getElementById("error").textContent = err;
                 } else {
+                    document.getElementById("error").textContent = "";
                     document.getElementById("answer").textContent = "You are registered";
                 }
             }
