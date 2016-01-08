@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task manager</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <form>
+            <fieldset>
+                <legend>Task Manager</legend>
+                <div class="info">
+                    <div>All tasks : <span id="numberOfAllTasks"></span></div>
+                    <div>Done : <span id="numberOfDone"></span></div>
+                    <div>Not done : <span id="numberOfNotDone"></span></div>
+                </div>
+                <div class="taskInput">
+                    <span>
+                        <label for="taskInput">Task input </label>
+                        <span><input id="taskInput" type="text"/></span>
+                        <button id="submit">Add task</button>
+                        <button id="deleteAllDone">Delete all Done</button>
+                        <div>
+                            <label for="checkAll">Check all tasks</label>
+                            <input type="checkbox" id="checkAll">
+                        </div>
+                    </span>
+                </div>
+                <div class="taskList">
+                    <ol id="list">
+
+                    </ol>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+<script src="functions.js"></script>
+</body>
+</html>
