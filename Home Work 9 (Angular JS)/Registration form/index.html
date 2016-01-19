@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="regApp">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/registration.js"></script>
+
+    <title>Registration</title>
+</head>
+<body>
+    <div ng-controller="RegistrationController as reg">
+        <h1>Registration form</h1>
+        <form class="regForm" ng-submit="reg.validateForm()">
+            <fieldset>
+                <legend>Registration</legend>
+                <div class="regInput">
+                    <span><label for="login" class="inputText">Login : </label><input id="login" type="text" ng-model="reg.login"></span>
+                </div>
+                <div class="regInput">
+                    <span><label for="email" class="inputText">Email : </label><input id="email" type="text" ng-model="reg.email"></span>
+                </div>
+                <div class="regInput">
+                    <span><label for="password" class="inputText">Password : </label><input id="password" type="password" ng-model="reg.firstPassword"></span>
+                </div>
+                <div class="regInput">
+                    <span><label for="repeatPassword" class="inputText">Repeat password : </label><input id="repeatPassword" type="password" ng-model="reg.secondPassword"></span>
+                </div>
+                <div class="regInput">
+                    <span><label for="phone" class="inputText">Phone : </label><input id="phone" type="text" ng-model="reg.phone"></span>
+                </div>
+                <div class="regInput">
+                    <span><input id="submit" type="submit"></span>
+                </div>
+                <span id="answer"></span>
+                <span id="error" ng-bind="reg.error"></span>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

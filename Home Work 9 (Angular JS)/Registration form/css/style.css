@@ -1,0 +1,20 @@
+.regForm {
+    width: 400px;
+}
+
+.regInput {
+    margin-bottom: 20px;
+}
+
+.inputText {
+    float: left;
+    width: 150px;
+}
+
+.inputField {
+    width: 100px;
+}
+
+#error {
+    color: red;
+}

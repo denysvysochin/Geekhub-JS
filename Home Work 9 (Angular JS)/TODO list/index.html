@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/todo.js"></script>
+
+    <title>TODO</title>
+</head>
+<body>
+    <div ng-controller="TODOController as todo">
+        <h1>TODO List :</h1>
+        <form class="regForm" ng-submit="todo.addTODO()">
+            <fieldset>
+                <legend>TODO :</legend>
+
+                <input type="text" ng-model="todo.text">
+                <input type="submit" value="Add">
+
+                <ul>
+                    <li ng-repeat="el in todo.list">
+                        <input type="checkbox" ng-model="el.done">
+                        <span ng-model="">{{el.text}}</span>
+                        <a href="#" ng-click="todo.delete(el.id)">delete</a>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
