@@ -1,0 +1,21 @@
+<div>
+    Hi, are you ready?
+</div>
+<button ui-sref="start" class="btn">Start a new game</button>
+
+<h1>Games</h1>
+
+<h2>Percentages of wins :</h2>
+<ul>
+    <li ng-repeat="percentBean in main.percentagesList">
+        <span>{{percentBean.playerName}} : {{percentBean.percent}}%</span>
+    </li>
+</ul>
+
+<div ng-repeat="game in main.viewGames | orderBy: 'name1' ">
+    <h2 ng-hide="main.games[$index - 1].name1 == game.name1">{{ game.name1 }}</h2>
+    <h3 ng-hide="main.games[$index - 1].name1 == game.name1 && main.games[$index - 1].time | date:'EEEE' == game.time | date:'EEEE'">--{{ game.time | date:'EEEE' }}</h3>
+    --{{ game.score1 }} : {{ game.score2 }} {{ game.name2 }}
+</div>
+
+<a ng-click="main.showAll()" ng-show="main.isCollapsed">Show All</a>

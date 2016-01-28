@@ -1,0 +1,11 @@
+<h1>Game data</h1>
+
+<form ng-submit="start.save()">
+    <label class="form-group">My Name: <input class="form-control" type="text" ng-model="start.name"></label>
+    <label class="form-group">Who I played: <input class="form-control" type="text" ng-model="start.hisName"></label>
+
+    <label class="form-group" ng-hide="start.name == ''">{{ start.name }} points: <input class="form-control" type="number" ng-model="start.points" max="21" min="0"></label>
+    <label class="form-group" ng-hide="start.hisName == ''">{{ start.hisName }} points: <input class="form-control" type="number" ng-model="start.hisPoints" max="21" min="0"></label>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
